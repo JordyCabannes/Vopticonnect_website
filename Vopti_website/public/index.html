@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link href="./bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./bootstrap-3.3.6/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <link rel="stylesheet" media="screen" type="text/css" href="./css/main.css">
+        <title>VoptiConnect</title>
+    </head>
+
+    <body onload="display_chat_video()" id="corps">
+        <article id="sousCorps">
+             <section class="experiment" id="page">
+
+             <!--section for room creation-->
+                <div id="initialisation">
+                    <div class="container-fluid col-xs-12 col-sm-12 col-md-12 col-lg-12 centreVerticalement" id="initMain">
+                        <div class="row" id="insideInitMain">  
+                            <div id="galerie"></div>   
+                            <div id="creation" class="col-push-perso-size1 col-xs-push-perso-size1 col-push-perso-size2 col-xs-push-perso-size2 col-push-perso-size3 col-xs-push-perso-size3 col-sm-push-4 col-sm-4 col-md-push-4 col-md-4 col-push-perso-size4 col-xs-push-perso-size4 col-xs-push-perso-crea col-lg-3 element heightDivPhone heightDiv"></div>
+                            <div id="creation2" class="col-push-perso-size1 col-xs-push-perso-size1 col-push-perso-size2 col-xs-push-perso-size2 col-push-perso-size3 col-xs-push-perso-size3 col-sm-push-4 col-sm-4 col-md-push-4 col-md-4 col-push-perso-size4 col-xs-push-perso-size4 col-xs-push-perso-crea col-lg-3 element">
+                                <label for="room-id">Create a new room or join an existing room</label><br>
+                                <input class="bouton" type="text" id="room-id"><br><br>
+                                <button class="btn btn-success buttonSize" id="open-room">Open Room</button>
+                                <button class="btn btn-success buttonSize" id="join-room">Join Room</button>
+                                <button class="btn btn-success buttonSize" id="open-or-join-room">Start</button>
+                            </div>
+                            <div id="creation3" class="col-push-perso-size1 col-xs-push-perso-size1 col-push-perso-size2 col-xs-push-perso-size2 col-push-perso-size3 col-xs-push-perso-size3 col-sm-push-4 col-sm-4 col-md-push-4 col-md-4 col-push-perso-size4 col-xs-push-perso-size4 col-xs-push-perso-crea col-lg-3 element">
+                                <label for="pseudo">Choose a pseudo</label><br>
+                                <input type="text" id="pseudo" class="bouton" autofocus><br><br>
+                                <button class="btn btn-success" type="button" onclick="getPseudo()">Send pseudo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!--section when you have joined or created a room-->
+                <div id="sectionSite">
+                    <div class="container-fluid col-xs-12 col-lg-12" id="main">
+                        <div class="row" id="insideMain">  
+                            <div class="col-xs-12" id="leave">  
+                                <h1 id ="information" class="element"></h1>
+                                <button id="reload" class="btn btn-success buttonSize" type="button" onclick="reloadPage()">OK</button>
+                            </div>
+                            <div id="divBtn" class="col-xs-push-2 col-xs-8 col-sm-push-perso-btn col-sm-5 col-md-push-4 col-md-4 col-lg-push-4 col-lg-4">
+                                <button id="chat" class="btn btn-default btn-circle sizeBtn1 sizeBtn2 sizeBtn3 sizeBtn4" onclick="displayChatbox()"><span  id="iconeChat" class="glyphicon glyphicon-comment"></span></button>
+                                <button id="btn-leave-room" class="btn btn-danger btn-circle sizeBtn1 sizeBtn2 sizeBtn3 sizeBtn4"><span id="iconeLeave" class="glyphicon glyphicon-log-out"></span></button>
+                            </div>
+                            <div id="videos-container" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
+                            <div id="chat-container-bis" class="col-xs-12 col-sm-push-7 col-sm-5 col-md-push-8 col-md-4 col-lg-push-9 col-lg-3">
+                                <div class="col-sm-12" id="insideChatBoxInside">
+                                    <div class="panel panel-primary col-xs-12 col-sm-12 layoutChatBoxLarge layoutChatBoxSmall" id=chatBoxHeart>
+                                        <div class="panel-collapse collapse col-xs-12" id="collapseOne">
+                                            <div class="panel-body" id="corpsChat">
+                                                <ul class="chat-output" id="chat-container">
+                                                    <div id="file-container"></div>
+                                                </ul>
+                                            </div>
+                                            <div class="panel-footer" id="footerChatBox">
+                                                <div class="input-group" id="eltFooter">
+                                                    <input id="input-text-chat" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                                    <span class="input-group-btn" id="btns-chat"><button class="btn btn-warning btn-sm" id="btn-chat" onclick="sendMsg()" disabled>Send</button><button id="share-file" class="btn btn-sm" disabled><span class="glyphicon glyphicon-file" id="fileIcone"></span></button></span>      
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+        <script type= "text/javascript" src="./js/rmc3.js"></script>
+        <script type= "text/javascript" src="./js/FileBufferReader.js"></script>
+        <script type= "text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type= "text/javascript" src="./bootstrap-3.3.6/dist/js/bootstrap.min.js"></script>
+        <script type= "text/javascript" src="./js/main.js"></script>
+    </body>
+</html>
