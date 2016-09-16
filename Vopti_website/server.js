@@ -2,7 +2,7 @@
 // MIT License    - www.WebRTC-Experiment.com/licence
 // Documentation  - github.com/muaz-khan/RTCMultiConnection
 
-var serverIP = "192.168.0.7";
+var serverIP = "192.168.1.22";
 var serverPORT = 443;
 
 var isUseHTTPs = !(!!process.env.PORT || !!process.env.IP);

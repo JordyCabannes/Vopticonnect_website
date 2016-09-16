@@ -3,6 +3,17 @@
         html {
             height:100%;
             width: 100%;
+            position: fixed;
+        }
+
+        article{
+            height: 100%;
+            width:100%; 
+        }
+
+        .experiment{
+            height: 100%;
+            width:100%;
         }
 
         html, body {
@@ -305,17 +316,7 @@
             }
         }
         
-        @media (min-width: 400px){
-            .heightDiv{
-                height:140px;
-            }
-        }
 
-        @media (max-width: 400px){
-            .heightDivPhone{
-                height:180px;
-            }
-        }
 
         .col-placement-perso{
             top:53%;
@@ -510,6 +511,7 @@
             height: 100%;
             margin-right: 0px;
             margin-left: 0px;
+            padding:0px;
         }
 
 
@@ -538,7 +540,7 @@
         #insideInitMain{
             position: absolute;
             z-index: 15;
-            margin-left: -15px;
+            margin-left: 0px;
             margin-right: 0px;
             height: 100%;
             width: 100%;            

@@ -27,14 +27,20 @@
     var biggestHeightPhone = haut;
     var firstPicture;
 
+    //function which runs when the app is launched
     function display_chat_video(){
         document.getElementById("chat-container-bis").style.visibility="hidden";
+        /*if(large<400){
+            document.getElementById("chat-container-bis").style.width=large+"px";
+            //document.getElementById("chat-container-bis").style.height=haut+"px";
+        }*/
         document.getElementById("footerChatBox").style.visibility="hidden";
         document.getElementById("leave").style.visibility="hidden";
         var hautChat =100-((52*100)/haut);
         document.getElementById("corpsChat").style.height=hautChat+"%";
     }
 
+    /*********** code written by VoptiConnect ***********/
     document.getElementById('open-room').onclick = function() {
         this.disabled = true;
         connection.open(document.getElementById('room-id').value);
@@ -46,9 +52,13 @@
     };
 
     document.getElementById('open-or-join-room').onclick = function() {
-        if(document.getElementById('room-id').value!==""){                   
+    /**********************************************************/
+        /****** My code ******/
+        if(document.getElementById('room-id').value!==""){ 
+        /********************/                  
             this.disabled = true;
             connection.openOrJoin(document.getElementById('room-id').value);
+            /****** My code ******/   
             document.getElementById("initialisation").style.visibility="hidden";
             document.getElementById("creation2").style.visibility="hidden";
             document.getElementById("sectionSite").style.visibility="visible";                
@@ -56,6 +66,7 @@
         else{
             alert("You have to type a room-id");
         }
+        /*********************/
     };
 
     document.getElementById('btn-leave-room').onclick = function() {
@@ -67,12 +78,14 @@
             });
 
         }
+        /****** My code ******/ 
         else {
             connection.leave();
             connection.attachStreams.forEach(function(stream) {
                 stream.stop();
             });
         }
+        /*********************/
         leaveRoom();
     };
 
@@ -86,7 +99,9 @@
         fileSelector.selectSingleFile(function(file) {
             connection.send(file);
         });
+        /****** My code ******/
         sharedFile=true;
+        /********************/
     };
 
     document.getElementById('input-text-chat').onkeyup = function(e) {
@@ -96,9 +111,11 @@
         if(document.getElementById('btn-chat').disabled === false){
             this.value = this.value.replace(/^\s+|\s+$/g, '');
             if (!this.value.length) return;
+            /****** My code ******/
             if(!initiator){
                 connection.userid=pseudo;
             }
+            /********************/
             connection.send(this.value);
             appendDIV(this.value);
             this.value = '';
@@ -106,19 +123,25 @@
     };
 
     function appendDIV(event) {
+        /************** My code **************/
         var maDate = new Date();
         var indice = tabTimeMessage.length;
         nTemps = maDate.getTime();
         tabTimeMessage.push(nTemps);
 
         var li = document.createElement('li');
+        /*************************************/
         msg = event.data || event;
+        /************** My code **************/
         li.className="right clearfix";
+        /*************************************/
         chatContainer.insertBefore(li, chatContainer.lastChild);
-        li.style.className="right clearfix";
+        /************** My code **************/
         li.innerHTML = "<span class='chat-img pull-right'><img src='http://placehold.it/50/FA6F57/fff&text=ME' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><small class=' text-muted'><span class='glyphicon glyphicon-time'>&nbsp</span><span class='time'></span></small><strong class='pull-right primary-font'>"+connection.userid+"</strong></div><p>"+msg+"</p></div>";
+        /*************************************/
     }
 
+    /************************ My code ************************/
     function appendDIVFile(){
         var maDateF = new Date();
         var indiceF = tabTimeMessage.length;
@@ -151,6 +174,7 @@
         }
         chatContainer.insertBefore(li, chatContainer.lastChild);
     }
+    /***********************************************************/
 
     // ......................................................
     // ..................RTCMultiConnection Code.............
@@ -197,6 +221,7 @@
     };
 
     connection.onmessage = function appendDIVReceive(event) {
+        /****** My code ******/
         var maDateRep = new Date();
         var indiceRep = tabTimeMessage.length;
         nTempsRep = maDateRep.getTime();
@@ -208,8 +233,10 @@
         clignote=false;
         var li = document.createElement('li');
         li.className="left clearfix";
+        /*********************/
         chatContainer.insertBefore(li, chatContainer.lastChild);
         var msg = event.data || event;
+        /****** My code ******/
         li.innerHTML ="<span class='chat-img pull-left'>"+
                             "<img src='http://placehold.it/50/55C1E7/fff&text=U' alt='User Avatar' class='img-circle' />"+
                         "</span>"+
@@ -218,6 +245,7 @@
                                 "<strong class='primary-font'>"+event.userid+ "</strong> <small class='pull-right text-muted'>"+
                                     "<span class='glyphicon glyphicon-time'>&nbsp</span><span class='time'></span></small>"+
                             "</div><p>"+msg+"</p></div>";
+        /*********************/
         chatContainer.insertBefore(li, chatContainer.lastChild);
     };
 
@@ -236,12 +264,16 @@
             document.querySelector('h1').innerHTML = 'You are still connected with: ' + connection.getAllParticipants().join(', ');
         }
         else {
+            /****** My code ******/
             connection.leave();
             connection.attachStreams.forEach(function(stream) {
                 stream.stop();
             });
+            /*********************/
             document.querySelector('h1').innerHTML = 'Seems session has been closed or all participants left';
+            /****** My code ******/
             leaveRoom();
+            /*********************/
         }
     };
 
@@ -273,6 +305,15 @@
     };
 
 
+/******* end of code written by VoptiConnect *********/
+
+
+
+/********** My code **********/
+
+    
+    /**** Functions which manages website behavior when participants leave the room ****/
+
     function leaveRoom(){
         cptVideo=0;
         document.getElementById("sectionSite").style.visibility="hidden";
@@ -280,8 +321,10 @@
         document.getElementById("footerChatBox").style.visibility="hidden";
         document.getElementById("chat-container-bis").style.visibility="hidden";
         document.getElementById("divBtn").style.visibility="hidden";
-    }   
+    }
+    /************************************************************************************/   
 
+    /**** Functions for the pseudo ****/
     function getPseudo(){
         pseudo= document.getElementById("pseudo").value;
         pseudoChoisi=true;
@@ -291,7 +334,9 @@
         document.getElementById("footerChatBox").style.zIndex="1";
         document.getElementById("room-id").focus();
     }
+    /***********************************/
 
+    /**** Functions for the pseudo which enables to press enter to validate pseudo ****/
     function saisiePseudo(){
         if(!roomOpened){
             document.getElementById('pseudo').onkeyup = function(e) {
@@ -300,7 +345,9 @@
             };
         }
     }
+    /***********************************************************************************/   
 
+    /**** Functions for the pseudo which enables to press enter to validate the room-id ****/
     function saisieRoomId(){
         if(!roomOpened && pseudoChoisi){
             document.getElementById('room-id').onkeyup = function(e) {
@@ -318,7 +365,9 @@
             };
         }
     }
+    /***********************************************************************************/
 
+    /**** Functions which manages the pictures when we open the website ****/
     function displayImages(){
         var active=$('#galerie .active');
         var next;
@@ -389,60 +438,53 @@
         if(!roomOpened){
             if(large!==largebis || haut!==hautbis){
                 if(large>600){
+                    document.getElementById("creation").style.height="140px";
                     document.getElementById("galerie").innerHTML="<img src='./pictures/canstockphoto15927760.jpg' class='active' />"
                                 +"<img src='./pictures/Chromebox-for-meetings.png'/>"
                                 +"<img src='./pictures/Happy-Android-Device-user-gms-advantage (1).jpg'/>"
                                 +"<img src='./pictures/ipad-iphone-ios9-facetime-hero.jpg'/>"
                                 +"<img src='./pictures/o-SMARTPHONE-facebook.jpg'/>"
                         
-                        if(haut>=biggestHeightDesk){
-                            $('#galerie img:first').height(haut+haut/3);
-                        }
-                        else{
-                            $('#galerie img:first').height(biggestHeightDesk+biggestHeightDesk/3);
-                        }
-                        $('#galerie img:first').width($('#galerie img:first').height()*1.5);
-                        if( $('#galerie img:first').width()<large){
-                            $('#galerie img:first').width(large);
-                            $('#galerie img:first').height(large/1.5);
-                        }
+                    $('#galerie img:first').height(haut+haut/3);
+                    $('#galerie img:first').width($('#galerie img:first').height()*1.5);
+                    if( $('#galerie img:first').width()<large){
+                        $('#galerie img:first').width(large);
+                        $('#galerie img:first').height(large/1.5);
                     }
+                }
                 else{
+                    document.getElementById("creation").style.height="180px";
                     document.getElementById("galerie").innerHTML="<img src='./pictures/1.jpg' class='active' />"
                                 +"<img src='./pictures/14207846263_7f5630ecb7_b.jpg'/>"
                                 +"<img src='./pictures/man-checking-phone.jpg'/>"
                                 +"<img src='./pictures/article-2320841-19AA4D2C000005DC-553_634x424.jpg'/>"
                                 +"<img src='./pictures/Man-looking-happily-at-phone-Betsie-Van-Der-Meer-Taxi-Getty.jpg'/>"
                                 +"<img src='./pictures/relationship-759.jpg'/> ";
-                                $('#galerie img:first').height(haut);
-                        if(haut>=biggestHeightPhone){
-                            $('#galerie img:first').height(haut);
-                        }
-                        else{
-                            $('#galerie img:first').height(biggestHeightPhone);
-                        }
-                        $('#galerie img:first').width($('#galerie img:first').height()*0.9);
-                        if( $('#galerie img:first').width()<large){
-                            $('#galerie img:first').width(large);
-                            $('#galerie img:first').height(large/0.9);
-                        }
+                    $('#galerie img:first').height(haut);
+                    $('#galerie img:first').width($('#galerie img:first').height()*0.9);
+                    if( $('#galerie img:first').width()<large){
+                        $('#galerie img:first').width(large);
+                        $('#galerie img:first').height(large/0.9);
+                    }
                 }
                 offsetWidth = ($('#galerie img:first').width()-large)/2;
                 offsetHeight = ($('#galerie img:first').height()-haut)/2;
                 $('#galerie img:first').css("left", "-"+offsetWidth+"px");
-                $('#galerie img:first').css("top", "-"+offsetHeight+"px");                
+                $('#galerie img:first').css("top", "-"+offsetHeight+"px");   
             }
             largebis=large;
             hautbis=haut;
-        }
-        if(haut>biggestHeightPhone){
-            biggestHeightPhone=haut;
-        }
-        if(haut>biggestHeightDesk){
-            biggestHeightDesk=haut;
-        }
+            if(large<600){
+                biggestHeightPhone=haut;
+            }
+            else{
+                biggestHeightDesk=haut;
+            }
+        }  
     }
+    /***********************************/
 
+    /**** Functions which set how videos are displayed ****/
     function layoutVideos(){
         var i, j;
         var video;
@@ -459,7 +501,6 @@
      			}
      		}
      	}
-
         large1 = $('#videos-container').width();
         large = $(window).width();
         nouvelleHauteur = (3/4)*large1;
@@ -478,9 +519,9 @@
         //On met les vidéos dans un div, cause l'erreur de stop and play, mais plus facile pour la mise en page
         for(i=x.length-1; i>=cptVideo; i--){
             var div = document.createElement('div');
-            div.insertBefore(x[i], div.firstChild);
+            div.appendChild(x[i]);
             div.className = "cadreVideo";
-            document.getElementById("videos-container").insertBefore(div, document.getElementById("videos-container").lastChild);
+            document.getElementById("videos-container").appendChild(div);
             cptVideo++;
         }
         video = document.getElementsByClassName("cadreVideo");
@@ -494,15 +535,9 @@
             document.getElementById("video-0bis").className = "cadreVideo video";
             document.getElementById("video-0bis").style.height=$('#videos-container').height()+"px";
             document.getElementById("video0").style.position="relative";
-            if($(window).width()<400){
-                widthVideo = $(window).width();
-                heightVideo = $(window).height();
-                document.getElementById("video-0bis").style.height=heightVideo+"px";
-                document.getElementById("video-0bis").style.width=widthVideo+"px";
-                document.getElementById("video0").style.height=heightVideo+"px";
-                document.getElementById("video0").style.width=widthVideo+"px";
-            }
-            else if($(window).width()<=768){
+            
+
+            if($(window).width()<=768){
                 widthVideo = $('#video-0bis').height()*(4/3);
                 if(widthVideo<large1){
                     widthVideo=large1;
@@ -535,7 +570,18 @@
                     document.getElementById("video0").style.top="0px";
                 }
             }
+            if($(window).width()<400){
+                widthVideo = $(window).width();
+                heightVideo = $(window).height();
+                offset=((heightVideo*0.7)-widthVideo)/2;
 
+                document.getElementById("video-0bis").style.height=heightVideo+"px";
+                document.getElementById("video0").style.height=heightVideo+"px";
+                document.getElementById("video0").style.width=(heightVideo*0.7)+"px";
+                document.getElementById("video0").style.top="0px";
+                document.getElementById("video0").style.left="-"+offset+"px";
+            }
+            
             document.getElementById("video-0bis").style.overflow="hidden";
             document.getElementById("video0").style.overflow="hidden";       
         }
@@ -565,6 +611,7 @@
             document.getElementById("video-0bis2people").style.height=heightVideoCaller+'px';
             document.getElementById("video02people").style.width="100%";        
 
+            
             if(large1<=768){
                 document.getElementById("video1").style.position="relative";
                 document.getElementById("video-1bis").style.height=$('#videos-container').height()+"px";
@@ -603,6 +650,15 @@
                 else{
                     document.getElementById("video1").style.top="0px";
                 }
+            }
+            if(large1<400){
+                document.getElementById("video-0bis2people").style.height="30%";
+                document.getElementById("video-0bis2people").style.width=($("#video-0bis2people").height()*0.7)+"px";
+                document.getElementById("video02people").style.height=$("#video-0bis2people").height()+"px";
+                document.getElementById("video02people").style.width=($("#video-0bis2people").height()*0.7)+"px";
+
+                offset=($("#video02people").width()-large1)/2;
+                document.getElementById("video02people").style.left="-"+offset+"px";
             }
             document.getElementById("video-1bis").style.overflow="hidden";
             document.getElementById("video1").style.overflow="hidden";
@@ -645,6 +701,7 @@
             document.getElementById("video03people").style.width=$('#video-0bis3people').width()+"px";
             document.getElementById("video03people").style.height=heightVideoCaller+"px";
 
+            
             if(large1<=768){
                 document.getElementById("video-1bis3people").style.height="100%";
                 document.getElementById("video-2bis").style.height="100%";
@@ -696,7 +753,15 @@
                 }
             }
 
-            
+            if(large1<400){
+                document.getElementById("video-0bis3people").style.height="30%";
+                document.getElementById("video-0bis3people").style.width=($("#video-0bis3people").height()*0.7)+"px";
+                document.getElementById("video03people").style.height=$("#video-0bis3people").height()+"px";
+                document.getElementById("video03people").style.width=($("#video-0bis3people").height()*0.7)+"px";
+
+                offset=($("#video03people").width()-large1)/2;
+                document.getElementById("video03people").style.left="-"+offset+"px";
+            }
             document.getElementById("video-1bis3people").style.overflow="hidden";
             document.getElementById("video13people").style.overflow="hidden";
             document.getElementById("video-2bis").style.overflow="hidden";
@@ -711,7 +776,9 @@
         document.getElementById("videos-container").style.overflow="hidden";
         xold=x.length;
     }
+    /**************************************************************************************/
 
+    /**** Function which calculates the time for each sending message ****/
     function calculTemps(){
         var maDateBis = new Date();
         nTempsBis = maDateBis.getTime();
@@ -723,7 +790,9 @@
             tabChat[i].innerHTML=Math.floor(res) + " mins ago";     
         }
     }
+    /*********************************************************************/
 
+    /**** Function which indicates with the chat button that we have received a message ****/
     function alertMsg(){
         if(msgReceived){
             if(clignote){
@@ -740,7 +809,10 @@
             }
         }
     }
+    /***************************************************************************************/
 
+
+    /**** Function which displays the chatbox ****/
     function displayChatbox(){
         var i;
         var heightVideoContainer;
@@ -750,6 +822,7 @@
             document.getElementById("chat").style.color="white";
             document.getElementById("chat").style.backgroundColor="blue";
         }
+        $('#input-text-chat').focus();
         if(document.getElementById("chat-container-bis").style.visibility==="hidden"){
             document.getElementById("videos-container").className = "col-sm-7 col-md-8 col-lg-9 hideVideo";
             if(y.length==2){
@@ -780,8 +853,10 @@
             document.getElementById("collapseOne").className = "panel-collapse collapse col-xs-12";
         }
     }
+    /******************************************************/
 
-        
+
+    /**** Function which creates the button to reduce chatbox on a smartphone ****/
     function btnReduceChatBox(){
         var placeBtn, btn ;
 
@@ -807,8 +882,9 @@
             btnReduce=false;
         }
     }
-
+    /******************************************************************************/
         
+    /**** Function which implements the behavior of the button which reduces the chatbox on smartphone ****/
     function reduceChatBox(){
         if(document.getElementById("chat-container-bis").style.visibility==="visible"){
             document.getElementById("chat-container-bis").style.visibility="hidden";
@@ -825,8 +901,9 @@
             document.getElementById("collapseOne").className = "panel-collapse collapse col-xs-12";
         }
     }
+    /******************************************************************************************************/
 
-
+    /**** Functions which add in the chatbox the file which has sent ****/
     function fileSent(){
         var fileContainer;
         var firstEnfant;
@@ -839,22 +916,9 @@
             }
         }
     }
+    /*********************************************************************/
 
-
-    document.getElementById('pseudo').onkeyup = function(e) {
-        if (e.keyCode != 13) return;
-
-        localStorage.setItem('user-id-guest', this.value)
-        pseudoChoisi=true;
-        pseudo = localStorage.getItem("user-id-guest");
-        document.getElementById("creation3").style.visibility="hidden";
-        document.getElementById("creation2").style.visibility="visible";
-
-        document.getElementById("collapseOne").style.zIndex+= "1";
-        document.getElementById("footerChatBox").style.zIndex="1";
-    };
-
-
+    /**** Function which sends our message when we click on the sending button ****/
     function sendMsg(){
         var message = document.getElementById('input-text-chat');
         message.value = message.value.replace(/^\s+|\s+$/g, '');
@@ -864,16 +928,26 @@
         appendDIV(message.value);
         message.value = '';
     }
+    /*******************************************************************************/
 
+    /**** Function which dynamically resizes the chatBox  ****/
     function sizeChatBox(){
         var haut3 = $(window).height();
         var hautChat2 =100-((52*100)/haut3);
+
+        /*if($(window).width()<400){
+            document.getElementById("chat-container-bis").style.height=$("#insideMain").height()+"px";
+            //document.getElementById("chat-container-bis").style.width=$("#insideMain").width()+"px";
+        }*/
         document.getElementById("corpsChat").style.height=hautChat2+"%";
     }
+    /********************************************************/
 
+    /**** Function which reloads the website page ****/
     function reloadPage(){
         location.reload();
     }
+    /*************************************************/
 
     jQuery(document).ready(function(){
         setInterval(picturesChoice, 10);
@@ -914,3 +988,4 @@
     jQuery(document).ready(function(){
         setInterval(saisieRoomId, 100);
     }); 
+/********** end of my code **********/
