@@ -599,17 +599,24 @@
 
             document.getElementById("video-1bis").className = "cadreVideo video";
             document.getElementById("video-1bis").style.width=$('#videos-container').width()+"px";
+            $('#video-0bis2people').width("");
+
             if(document.getElementById("chat-container-bis").style.visibility==="hidden"){
                 document.getElementById("video-0bis2people").className="cadreVideo video col-xs-5 col-sm-4 col-md-3 col-lg-3 placement";
             }
             else{
                 document.getElementById("video-0bis2people").className = "cadreVideo video col-xs-5 col-sm-4 col-md-3 col-lg-3 placement";
+            }
+            if ($(window).height()<300){
+                heightVideoCaller = $(window).height()*0.45;
+                document.getElementById("video-0bis2people").style.width="30%";
             } 
-            heightVideoCaller = ($('#video-0bis2people').width()*(3/4));
-
-            document.getElementById("video02people").style.height=heightVideoCaller+'px';
+            else{
+                heightVideoCaller = ($('#video-0bis2people').width()*(3/4));
+            }
             document.getElementById("video-0bis2people").style.height=heightVideoCaller+'px';
-            document.getElementById("video02people").style.width="100%";        
+            document.getElementById("video02people").style.height=heightVideoCaller+'px';
+            document.getElementById("video02people").style.width=$('#video-0bis2people').width()+'px';        
 
             
             if(large1<=768){
@@ -678,10 +685,10 @@
 
             document.getElementById("video13people").style.top="0px";
             document.getElementById("video13people").style.left="0px"; 
+
+            $('#video-0bis3people').width("");
                 
-            large1 = $('#videos-container').width();
-            nouvelleHauteur = (3/4)*large1;
-            heightVideoCaller = (3/4)*$("#video-0bis3people").width();
+
             if(document.getElementById("chat-container-bis").style.visibility==="hidden"){
                 document.getElementById("videos-container").className="col-xs-12 col-sm-12 col-md-12 col-lg-12 centreVerticalement";
                 document.getElementById("video-0bis3people").className = "cadreVideo video col-xs-4 col-sm-3 col-md-3 col-lg-2 col-lg-push-5 col-sm-push-perso-chat col-xs-push-4 col-md-push-perso col-placement-perso";
@@ -691,12 +698,22 @@
                 document.getElementById("video-0bis3people").className = "cadreVideo video col-xs-push-perso-chat col-xs-3 col-sm-push-perso-chat col-sm-3 col-md-push-perso col-md-3 col-lg-push-5 col-lg-2 col-placement-perso";
             }
 
+            large1 = $('#videos-container').width();
+            nouvelleHauteur = (3/4)*large1;
+
             document.getElementById("video-1bis3people").className="cadreVideo video col-xs-6";
             document.getElementById("video-2bis").className="cadreVideo video col-xs-6";
             document.getElementById("video13people").style.position="relative";                
             widthCadreVideo = large1/2;
             offsetCadreVideo = (large1-widthCadreVideo)/2;
             
+            if ($(window).height()<300){
+                heightVideoCaller = $(window).height()*0.45;
+            } 
+            else{
+                heightVideoCaller = ($('#video-0bis3people').width()*(3/4));
+            }
+
             document.getElementById("video-0bis3people").style.height=heightVideoCaller+"px";
             document.getElementById("video03people").style.width=$('#video-0bis3people').width()+"px";
             document.getElementById("video03people").style.height=heightVideoCaller+"px";
