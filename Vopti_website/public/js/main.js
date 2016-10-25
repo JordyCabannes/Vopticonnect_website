@@ -312,7 +312,7 @@
 /********** My code **********/
 
     
-    /**** Functions which manages website behavior when participants leave the room ****/
+    /**** Function which manages website behavior when participants leave the room ****/
 
     function leaveRoom(){
         cptVideo=0;
@@ -324,7 +324,7 @@
     }
     /************************************************************************************/   
 
-    /**** Functions for the pseudo ****/
+    /**** Function for the pseudo ****/
     function getPseudo(){
         pseudo= document.getElementById("pseudo").value;
         pseudoChoisi=true;
@@ -336,7 +336,7 @@
     }
     /***********************************/
 
-    /**** Functions for the pseudo which enables to press enter to validate pseudo ****/
+    /**** Function for the pseudo which enables to press enter to validate pseudo ****/
     function saisiePseudo(){
         if(!roomOpened){
             document.getElementById('pseudo').onkeyup = function(e) {
@@ -347,7 +347,7 @@
     }
     /***********************************************************************************/   
 
-    /**** Functions for the pseudo which enables to press enter to validate the room-id ****/
+    /**** Function for the pseudo which enables to press enter to validate the room-id ****/
     function saisieRoomId(){
         if(!roomOpened && pseudoChoisi){
             document.getElementById('room-id').onkeyup = function(e) {
@@ -484,7 +484,7 @@
     }
     /***********************************/
 
-    /**** Functions which set how videos are displayed ****/
+    /**** Function which sets how videos are displayed ****/
     function layoutVideos(){
         var i, j;
         var video;
@@ -920,7 +920,7 @@
     }
     /******************************************************************************************************/
 
-    /**** Functions which add in the chatbox the file which has sent ****/
+    /**** Function which adds in the chatbox the file which has sent ****/
     function fileSent(){
         var fileContainer;
         var firstEnfant;
